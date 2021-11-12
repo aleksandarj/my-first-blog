@@ -3,17 +3,25 @@
 {% block content %}
     <article class="post">
         {% if post.published_date %}
-            <time class="date">
+            <div class="date">
                 {{ post.published_date }}
-            </time>
+            </div>
+        {% else %}
+            <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
         {% endif %}
         <h2>{{ post.title }}</h2>
+        <p>author: {{ post.author.username }}</p>
         <p>{{ post.text|linebreaksbr }}</p>
         <aside class="actions">
             {% if user.is_authenticated %}
+            {% if user.pk == post.author.pk %}
             <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
                 Edit
             </a>
+            <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
+                Delete
+            </a>
+            {% endif %}
             {% endif %}
         </aside>
     </article>
