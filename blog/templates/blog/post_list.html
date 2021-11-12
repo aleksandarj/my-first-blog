@@ -7,15 +7,20 @@
                 {{ post.published_date }}
             </time>
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p>author: {{ post.author.username }}</p>
-            <p>{{ post.text|linebreaksbr }}</p>
+
             {% if user.is_authenticated %}
             {% if user.pk == post.author.pk %}
-            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
-                Edit
-            </a>
+            <div class="date">
+                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+                    Edit
+                </a>
+            </div>
             {% endif %}
             {% endif %}
+
+            <p>author: {{ post.author.username }}</p>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         </article>
     {% endfor %}
 {% endblock %}

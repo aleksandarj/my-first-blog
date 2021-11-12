@@ -11,10 +11,19 @@
         <header class="page-header">
             <div class="container">
                 {% if user.is_authenticated %}
+                <p class="top-menu">
+                    <small>Hello <i>{{ user.username }}</i> (<a href="{% url 'logout' %}">logout</a>)</small>
+                </p>
                 <a href="{% url 'post_new' %}" class="top-menu">
-                    New+
+                    <small>New+</small>
                 </a>
-                <a href="{% url 'post_draft_list' %}" class="top-menu">Drafts</span></a>
+                <a href="{% url 'post_draft_list' %}" class="top-menu">
+                    <small>Drafts</small>
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="top-menu">
+                    Login
+                </a>
                 {% endif %}
                 <h1><a href="/">Zaeban Blog</a></h1>
             </div>
